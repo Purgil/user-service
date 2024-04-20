@@ -8,6 +8,6 @@ data class UserInfo (
         val nickname: String
 ) {
     companion object {
-        fun of (user: User): UserInfo = UserInfo(user.id, user.username, user.nickname)
+        fun from (user: User): UserInfo = UserInfo(user.id, user.username, user.nickname)
     }
 }

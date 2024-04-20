@@ -1,6 +1,6 @@
 package io.purgil.userservice.application.port.out
 
-interface LoadUserPort {
+interface ReadUserPort {
     fun existsByUsername(username: String): Boolean
     fun existsByNickname(nickname: String): Boolean
 }
