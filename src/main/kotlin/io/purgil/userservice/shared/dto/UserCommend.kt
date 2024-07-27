@@ -1,20 +1,21 @@
-package io.purgil.userservice.application.port.`in`.dto
+package io.purgil.userservice.shared.dto
 
+import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Size
 
-data class RegisterCommend(
+data class EmailRegisterCommend(
+        @NotNull
+        @Email
+        val email: String,
+
         @NotNull
         @Size(min = 6, max = 20)
-        val username: String,
+        val name: String,
 
         @NotNull
         @Size(min = 6, max = 20)
         @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-_=+\\\\|\\[{\\]};:'\",<.>/?]).{6,}$")
         val password: String,
-
-        @NotNull
-        @Size(min = 2, max = 20)
-        val nickname: String
 )

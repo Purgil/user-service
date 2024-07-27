@@ -1,24 +1,22 @@
 package io.purgil.userservice.adapter.out.persistence
 
-import io.purgil.userservice.application.domain.mapper.UserMapper
-import io.purgil.userservice.application.domain.model.User
-import io.purgil.userservice.application.port.`in`.dto.RegisterCommend
-import io.purgil.userservice.application.port.out.WriteUserPort
-import io.purgil.userservice.application.port.out.ReadUserPort
+import io.purgil.userservice.application.port.out.UserPersistencePort
+import io.purgil.userservice.domain.model.User
+import io.purgil.userservice.infra.repository.UserRepository
+import io.purgil.userservice.shared.mapper.UserMapper.toDomain
+import io.purgil.userservice.shared.mapper.UserMapper.toEntity
+import kotlinx.coroutines.reactive.awaitFirstOrElse
+import kotlinx.coroutines.reactive.awaitFirstOrNull
 import org.springframework.stereotype.Component
 
 @Component
 class UserPersistenceAdapter(
-        private val userJpaRepo: UserJpaRepo,
-        private val userMapper: UserMapper
-) : WriteUserPort, ReadUserPort {
-    override fun existsByUsername(username: String): Boolean =
-            userJpaRepo.existsByUsername(username)
+        private val userRepository: UserRepository,
+) : UserPersistencePort {
+    override suspend fun existsByEmail(email: String): Boolean =
+            userRepository.existsByEmail(email)
 
-    override fun existsByNickname(nickname: String): Boolean =
-            userJpaRepo.existsByNickname(nickname)
-
-    override fun create(user: User): User {
-        return user
-    }
+    override suspend fun save(user: User): User =
+            userRepository.save(user.toEntity())
+                    .toDomain()
 }

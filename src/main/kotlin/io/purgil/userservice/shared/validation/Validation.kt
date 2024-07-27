@@ -1,4 +1,4 @@
-package io.purgil.userservice.common.validation
+package io.purgil.userservice.shared.validation
 
 import jakarta.validation.ConstraintViolation
 import jakarta.validation.ConstraintViolationException

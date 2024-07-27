@@ -1,9 +1,9 @@
 package io.purgil.userservice.adapter.`in`.web
 
-import io.purgil.userservice.application.port.`in`.RegisterUseCase
-import io.purgil.userservice.application.port.`in`.dto.RegisterCommend
-import io.purgil.userservice.application.port.`in`.dto.UserInfo
-import jakarta.validation.executable.ValidateOnExecution
+import io.purgil.userservice.application.port.`in`.UserUseCase
+import io.purgil.userservice.shared.dto.AuthUserData
+import io.purgil.userservice.shared.dto.EmailRegisterCommend
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/user")
 class UserController(
-        private val registerUseCase: RegisterUseCase
+        private val userUseCase: UserUseCase
 ) {
-    @ValidateOnExecution
-    @PostMapping("/register")
-    fun register(@RequestBody commend : RegisterCommend) : ResponseEntity<UserInfo> {
-        val userInfo = registerUseCase.executeRegister(commend)
-        return ResponseEntity.ok(userInfo)
+    @PostMapping("/register/email")
+    suspend fun register(@Valid @RequestBody commend : EmailRegisterCommend) : ResponseEntity<AuthUserData> {
+        return ResponseEntity.ok(
+                userUseCase.emailRegister(commend)
+        )
     }
 }
