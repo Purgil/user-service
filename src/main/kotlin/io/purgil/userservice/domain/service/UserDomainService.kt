@@ -8,14 +8,10 @@ import java.util.*
 @Service
 class UserDomainService {
     fun emailRegister(commend: EmailRegisterCommend): User {
-        val id = UUID.randomUUID()
         return User(
-                id = id,
                 email = commend.email,
                 name = commend.name,
-                password = commend.password,
-                createdBy = id,
-                updatedBy = id
+                password = commend.password
         )
     }
 }

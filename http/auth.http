@@ -1,0 +1,9 @@
+### 이메일 회원가입
+POST {{gateway-url}}/api/user/register/email
+Content-Type: application/json
+
+{
+  "email": "tmdghks2516@naver.com",
+  "password": "qwe123!@#",
+  "name": "임승환2"
+}

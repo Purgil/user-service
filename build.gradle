@@ -16,6 +16,7 @@ java {
 
 repositories {
 	mavenCentral()
+	mavenLocal()
 }
 
 ext {
@@ -31,8 +32,10 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.data:spring-data-r2dbc'
-	implementation 'io.r2dbc:r2dbc-postgresql'
-	runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly 'org.postgresql:r2dbc-postgresql'
+	implementation "io.purgil:shared-lib:0.0.1"
+	implementation 'org.springframework.boot:spring-boot-starter-logging'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 }
