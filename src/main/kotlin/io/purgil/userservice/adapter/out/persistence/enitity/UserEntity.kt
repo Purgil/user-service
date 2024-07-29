@@ -1,11 +1,13 @@
 package io.purgil.userservice.adapter.out.persistence.enitity
 
+import io.purgil.sharedlib.vo.RoleType
 import io.purgil.userservice.domain.vo.SocialType
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 import java.time.LocalDateTime
 import java.util.*
@@ -17,17 +19,19 @@ data class UserEntity(
         val password: String?,
         val name: String,
         val isActive: Boolean,
+        @Column("roles") val roles: List<RoleType> = emptyList(),
         val isWithdrawn: Boolean,
         val withdrawnAt: LocalDateTime?,
-        @CreatedBy val createdBy: UUID? = null,
+        @CreatedBy val createdBy: String? = null,
         @CreatedDate val createdAt: LocalDateTime? = null,
-        @LastModifiedBy val lastModifiedBy: UUID? = null,
+        @LastModifiedBy val lastModifiedBy: String? = null,
         @LastModifiedDate val lastModifiedAt: LocalDateTime? = null
 )
 
 @Table(name = "social_profile")
 data class SocialProfileEntity(
-        @Id val id: Long? = null,
+        @Id val id: UUID? = null,
+        val userId: UUID,
         val socialId: String,
         val socialType: SocialType,
         val additionalInfo: Map<String, Any> = emptyMap(),
@@ -37,15 +41,15 @@ data class SocialProfileEntity(
 @Table(name = "follow")
 data class FollowEntity(
         @Id val id: Long? = null,
-        val followerId: String,
-        val followingId: String,
+        val followerId: UUID,
+        val followingId: UUID,
         @CreatedDate val createdAt: LocalDateTime? = null,
 )
 
 @Table(name = "block")
 data class BlockEntity(
         @Id val id: Long? = null,
-        val blockerId: String,
-        val blockingId: String,
+        val blockerId: UUID,
+        val blockingId: UUID,
         @CreatedDate val createdAt: LocalDateTime? = null,
 )

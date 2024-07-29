@@ -19,4 +19,10 @@ class UserPersistenceAdapter(
     override suspend fun save(user: User): User =
             userRepository.save(user.toEntity())
                     .toDomain()
+
+    override suspend fun findByEmail(email: String): User {
+        val userEntity = userRepository.findByEmail(email)
+                ?: throw IllegalArgumentException("User not found by email: $email")
+        return userEntity.toDomain()
+    }
 }

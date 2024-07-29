@@ -7,6 +7,7 @@ import reactor.core.publisher.Mono
 import java.util.UUID
 
 interface UserRepository : CoroutineCrudRepository<UserEntity, String> {
+    suspend fun findByEmail(email: String): UserEntity?
     suspend fun existsByEmail(email: String): Boolean
     suspend fun save(userEntity: UserEntity): UserEntity
 }

@@ -1,9 +1,19 @@
+### 이메일 로그인
+POST {{gateway-url}}/api/user/login/email
+Content-Type: application/json
+
+{
+  "email": "tmdghks2515@naver.com",
+  "password": "qwe123!"
+}
+
+
 ### 이메일 회원가입
 POST {{gateway-url}}/api/user/register/email
 Content-Type: application/json
 
 {
-  "email": "tmdghks2516@naver.com",
-  "password": "qwe123!@#",
-  "name": "임승환2"
+  "email": "tmdghks2515@naver.com",
+  "password": "qwe123!",
+  "name": "임승환"
 }

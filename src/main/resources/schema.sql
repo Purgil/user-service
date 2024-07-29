@@ -1,13 +1,13 @@
 CREATE SCHEMA IF NOT EXISTS public;
-
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO purgil_master;
 
 -- UserEntity 테이블 생성
 CREATE TABLE IF NOT EXISTS "user" (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    roles JSONB NOT NULL,
     email VARCHAR(255) NOT NULL,
-    password VARCHAR(255),
     name VARCHAR(255) NOT NULL,
+    password VARCHAR(255),
     is_active BOOLEAN NOT NULL,
     is_withdrawn BOOLEAN NOT NULL,
     withdrawn_at TIMESTAMP,
@@ -19,7 +19,8 @@ CREATE TABLE IF NOT EXISTS "user" (
 
 -- SocialProfileEntity 테이블 생성
 CREATE TABLE IF NOT EXISTS social_profile (
-    id BIGSERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL,
     social_id VARCHAR(255) NOT NULL,
     social_type VARCHAR(50) NOT NULL,
     additional_info JSONB,

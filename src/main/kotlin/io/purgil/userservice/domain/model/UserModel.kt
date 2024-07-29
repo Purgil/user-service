@@ -1,5 +1,6 @@
 package io.purgil.userservice.domain.model
 
+import io.purgil.sharedlib.vo.RoleType
 import io.purgil.userservice.domain.vo.SocialType
 import java.time.LocalDateTime
 import java.util.UUID
@@ -10,6 +11,7 @@ data class User(
         var password: String?,
         var name: String,
         var isActive: Boolean = false,
+        val roles: List<RoleType> = mutableListOf(),
         val socialProfiles: List<SocialProfile> = mutableListOf(),
         val followers: List<Follow> = mutableListOf(),
         val followings: List<Follow> = mutableListOf(),
@@ -18,13 +20,14 @@ data class User(
         var isWithdrawn: Boolean = false,
         var withdrawnAt: LocalDateTime? = null,
         val createdAt: LocalDateTime? = LocalDateTime.now(),
-        val createdBy: UUID? = null,
+        val createdBy: String? = null,
         var lastModifiedAt: LocalDateTime? = LocalDateTime.now(),
-        var lastModifiedBy: UUID? = null,
+        var lastModifiedBy: String? = null,
 )
 
 data class SocialProfile(
-        val id: Long? = null,
+        val id: UUID? = null,
+        val userId: UUID,
         val socialId: String,
         val socialType: SocialType,
         val additionalInfo: Map<String, Any> = emptyMap(),
@@ -33,14 +36,14 @@ data class SocialProfile(
 
 data class Follow(
         val id: Long? = null,
-        val followerId: String,
-        val followingId: String,
+        val followerId: UUID,
+        val followingId: UUID,
         val createdAt: LocalDateTime? = LocalDateTime.now()
 )
 
 data class Block(
         val id: Long? = null,
-        val blockerId: String,
-        val blockingId: String,
+        val blockerId: UUID,
+        val blockingId: UUID,
         val createdAt: LocalDateTime? = LocalDateTime.now()
 )

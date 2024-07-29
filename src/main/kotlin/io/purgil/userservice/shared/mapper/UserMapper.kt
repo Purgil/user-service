@@ -1,5 +1,6 @@
 package io.purgil.userservice.shared.mapper
 
+import io.purgil.sharedlib.resorver.dto.LoginUser
 import io.purgil.userservice.adapter.out.persistence.enitity.BlockEntity
 import io.purgil.userservice.adapter.out.persistence.enitity.FollowEntity
 import io.purgil.userservice.adapter.out.persistence.enitity.SocialProfileEntity
@@ -8,9 +9,6 @@ import io.purgil.userservice.domain.model.Block
 import io.purgil.userservice.domain.model.Follow
 import io.purgil.userservice.domain.model.SocialProfile
 import io.purgil.userservice.domain.model.User
-import io.purgil.userservice.shared.dto.AuthUserData
-import io.purgil.userservice.shared.mapper.UserMapper.toDomain
-import java.util.*
 
 object UserMapper {
     fun UserEntity.toDomain(): User =
@@ -20,6 +18,7 @@ object UserMapper {
                 password = this.password,
                 name = this.name,
                 isActive = this.isActive,
+                roles = this.roles,
                 isWithdrawn = this.isWithdrawn,
                 withdrawnAt = this.withdrawnAt,
                 createdAt = this.createdAt,
@@ -35,6 +34,7 @@ object UserMapper {
                 password = this.password,
                 name = this.name,
                 isActive = this.isActive,
+                roles = this.roles,
                 isWithdrawn = this.isWithdrawn,
                 withdrawnAt = this.withdrawnAt,
                 createdAt = this.createdAt,
@@ -43,16 +43,18 @@ object UserMapper {
                 lastModifiedBy = this.lastModifiedBy
         )
 
-    fun User.toAuthUserData(): AuthUserData =
-        AuthUserData(
-                id = this.id.toString(),
+    fun User.toLoginUser(): LoginUser =
+            LoginUser(
+                id = this.id!!,
                 email = this.email,
-                name = this.name
+                name = this.name,
+                roles = this.roles
         )
 
     fun SocialProfileEntity.toDomain(): SocialProfile =
         SocialProfile(
                 id = this.id,
+                userId = this.userId,
                 socialId = this.socialId,
                 socialType = this.socialType,
                 additionalInfo = this.additionalInfo,
@@ -62,6 +64,7 @@ object UserMapper {
     fun SocialProfile.toEntity(): SocialProfileEntity =
         SocialProfileEntity(
                 id = this.id,
+                userId = this.userId,
                 socialId = this.socialId,
                 socialType = this.socialType,
                 additionalInfo = this.additionalInfo,
