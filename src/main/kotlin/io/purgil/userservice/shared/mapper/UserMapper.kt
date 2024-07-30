@@ -1,6 +1,7 @@
 package io.purgil.userservice.shared.mapper
 
 import io.purgil.sharedlib.resorver.dto.LoginUser
+import io.purgil.sharedlib.vo.RoleType
 import io.purgil.userservice.adapter.out.persistence.enitity.BlockEntity
 import io.purgil.userservice.adapter.out.persistence.enitity.FollowEntity
 import io.purgil.userservice.adapter.out.persistence.enitity.SocialProfileEntity
@@ -18,7 +19,7 @@ object UserMapper {
                 password = this.password,
                 name = this.name,
                 isActive = this.isActive,
-                roles = this.roles,
+                roles = JsonMapper.fromJson(this.roles, Array<RoleType>::class.java).toList(),
                 isWithdrawn = this.isWithdrawn,
                 withdrawnAt = this.withdrawnAt,
                 createdAt = this.createdAt,
@@ -34,7 +35,7 @@ object UserMapper {
                 password = this.password,
                 name = this.name,
                 isActive = this.isActive,
-                roles = this.roles,
+                roles = JsonMapper.toJson(this.roles),
                 isWithdrawn = this.isWithdrawn,
                 withdrawnAt = this.withdrawnAt,
                 createdAt = this.createdAt,

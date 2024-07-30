@@ -13,7 +13,7 @@ POST {{gateway-url}}/api/user/register/email
 Content-Type: application/json
 
 {
-  "email": "tmdghks2515@naver.com",
+  "email": "tmdghks2518@naver.com",
   "password": "qwe123!",
-  "name": "임승환"
+  "name": "임승환4"
 }

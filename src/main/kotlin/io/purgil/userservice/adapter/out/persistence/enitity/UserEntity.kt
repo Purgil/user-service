@@ -1,7 +1,7 @@
 package io.purgil.userservice.adapter.out.persistence.enitity
 
-import io.purgil.sharedlib.vo.RoleType
 import io.purgil.userservice.domain.vo.SocialType
+import io.r2dbc.postgresql.codec.Json
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.Id
@@ -19,7 +19,7 @@ data class UserEntity(
         val password: String?,
         val name: String,
         val isActive: Boolean,
-        @Column("roles") val roles: List<RoleType> = emptyList(),
+        @Column("roles") val roles: Json,
         val isWithdrawn: Boolean,
         val withdrawnAt: LocalDateTime?,
         @CreatedBy val createdBy: String? = null,
