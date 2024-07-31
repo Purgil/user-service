@@ -1,5 +1,5 @@
 ### 이메일 로그인
-POST {{gateway-url}}/api/user/login/email
+POST {{user-service-url}}/api/user/login/email
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
 
 
 ### 이메일 회원가입
-POST {{gateway-url}}/api/user/register/email
+POST {{user-service-url}}/api/user/register/email
 Content-Type: application/json
 
 {

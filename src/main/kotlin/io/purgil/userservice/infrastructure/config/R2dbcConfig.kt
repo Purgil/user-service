@@ -1,10 +1,7 @@
-package io.purgil.userservice.infra.config
+package io.purgil.userservice.infrastructure.config
 
 import io.r2dbc.spi.ConnectionFactory
-import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.data.r2dbc.convert.R2dbcCustomConversions
-import org.springframework.data.r2dbc.dialect.DialectResolver
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories
 
 @Configuration

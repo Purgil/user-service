@@ -1,6 +1,6 @@
 package io.purgil.userservice.shared.mapper
 
-import io.purgil.sharedlib.resorver.dto.LoginUser
+import io.purgil.sharedlib.dto.LoginUser
 import io.purgil.sharedlib.vo.RoleType
 import io.purgil.userservice.adapter.out.persistence.enitity.BlockEntity
 import io.purgil.userservice.adapter.out.persistence.enitity.FollowEntity

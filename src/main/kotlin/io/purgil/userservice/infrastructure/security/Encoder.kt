@@ -1,4 +1,4 @@
-package io.purgil.userservice.infra.security
+package io.purgil.userservice.infrastructure.security
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Component

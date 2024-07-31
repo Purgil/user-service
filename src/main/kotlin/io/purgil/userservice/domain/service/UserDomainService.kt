@@ -15,6 +15,4 @@ class UserDomainService {
                     password = commend.password,
                     roles = listOf(RoleType.MEMBER),
             )
-
-
 }

@@ -1,10 +1,11 @@
 package io.purgil.userservice.application.service
 
-import io.purgil.sharedlib.resorver.dto.LoginUser
+import io.purgil.sharedlib.util.JwtUtil
 import io.purgil.userservice.application.port.`in`.UserUseCase
 import io.purgil.userservice.application.port.out.UserPersistencePort
 import io.purgil.userservice.domain.service.UserDomainService
-import io.purgil.userservice.infra.security.Encoder
+import io.purgil.userservice.infrastructure.security.Encoder
+import io.purgil.userservice.shared.dto.AuthorizationResDTO
 import io.purgil.userservice.shared.dto.EmailRegisterCommend
 import io.purgil.userservice.shared.dto.LoginCommend
 import io.purgil.userservice.shared.mapper.UserMapper.toLoginUser
@@ -16,7 +17,7 @@ class UserService(
         private val userPersistencePort: UserPersistencePort,
         private val encoder: Encoder
 ) : UserUseCase{
-    override suspend fun emailRegister(commend: EmailRegisterCommend): LoginUser {
+    override suspend fun emailRegister(commend: EmailRegisterCommend): AuthorizationResDTO {
         if (userPersistencePort.existsByEmail(commend.email))
             throw IllegalArgumentException("Email already exists")
         val pwdEncodedCommend = commend.copy(
@@ -24,15 +25,19 @@ class UserService(
         )
         val registeredUser = userDomainService.emailRegister(pwdEncodedCommend)
 
-        return userPersistencePort.save(registeredUser)
+        val savedLoginUser = userPersistencePort.save(registeredUser)
                 .toLoginUser()
+
+        val (accessToken, refreshToken) = JwtUtil.generateTokenPair(savedLoginUser)
+        return AuthorizationResDTO(accessToken, refreshToken)
     }
 
-    override suspend fun emailLogin(commend: LoginCommend): LoginUser {
+    override suspend fun emailLogin(commend: LoginCommend): AuthorizationResDTO {
         val user = userPersistencePort.findByEmail(commend.email)
         if (!encoder.matches(commend.password, user.password!!))
             throw IllegalArgumentException("이메일 비밀번호를 다시 확인해 주세요")
 
-        return user.toLoginUser()
+        val (accessToken, refreshToken) = JwtUtil.generateTokenPair(user.toLoginUser())
+        return AuthorizationResDTO(accessToken, refreshToken)
     }
 }

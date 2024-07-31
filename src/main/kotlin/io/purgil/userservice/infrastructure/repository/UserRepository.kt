@@ -1,10 +1,7 @@
-package io.purgil.userservice.infra.repository
+package io.purgil.userservice.infrastructure.repository
 
 import io.purgil.userservice.adapter.out.persistence.enitity.UserEntity
-import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
-import reactor.core.publisher.Mono
-import java.util.UUID
 
 interface UserRepository : CoroutineCrudRepository<UserEntity, String> {
     suspend fun findByEmail(email: String): UserEntity?

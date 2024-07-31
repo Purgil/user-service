@@ -24,16 +24,16 @@ ext {
 }
 
 dependencies {
+	implementation "io.purgil:shared-lib:0.0.1"
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
 	implementation 'io.projectreactor.kotlin:reactor-kotlin-extensions'
 	implementation 'org.jetbrains.kotlin:kotlin-reflect'
 	implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-reactor'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.data:spring-data-r2dbc'
 	implementation 'org.postgresql:r2dbc-postgresql'
-	implementation "io.purgil:shared-lib:0.0.1"
 	implementation 'org.springframework.boot:spring-boot-starter-logging'
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
